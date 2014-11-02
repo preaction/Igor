@@ -1,11 +1,8 @@
-# ABSTRACT: A Dependency Injection Container
-
 package Igor;
+# ABSTRACT: A Dependency Injection Container
 
 use strict;
 use warnings;
-
-# VERSION
 
 use Moo;
 use Config::Any;
