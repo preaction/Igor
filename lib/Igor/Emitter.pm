@@ -203,8 +203,9 @@ open opens after noon (to keep us from having to wake up in the morning).
 
     $restful_door->open;
 
-By calling L<Igor::Event/stop_default>, we set the L<Igor::Event/is_default_stopped>
-flag, which the door sees and decides not to open.
+By calling L<stop_default|Igor::Event/stop_default>, we set the
+L<is_default_stopped|Igor::Event/is_default_stopped> flag, which the door sees
+and decides not to open.
 
 =head2 Using Custom Events
 
