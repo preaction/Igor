@@ -1,9 +1,16 @@
 
+use strict;
+use warnings;
 use Test::More;
 use Test::Deep;
 use Test::Exception;
 
 use Igor;
+
+subtest 'config file does not exist' => sub {
+    throws_ok { Igor->new( file => 'DOES_NOT_EXIST.yml' ) } 'Igor::Exception::Constructor';
+    like $@, qr{\QContainer file 'DOES_NOT_EXIST.yml' does not exist}, 'stringifies';
+};
 
 subtest "get a service that doesn't exist" => sub {
     my $wire = Igor->new;

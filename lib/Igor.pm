@@ -873,6 +873,15 @@ Create a new container.
 
 sub BUILD {
     my ( $self ) = @_;
+
+    if ( $self->file && !path( $self->file )->exists ) {
+        my $file = $self->file;
+        Igor::Exception::Constructor->throw(
+            attr => 'file',
+            error => qq{Container file '$file' does not exist},
+        );
+    }
+
     # Create all the eager services
     for my $key ( keys %{ $self->config } ) {
         my $config = $self->config->{$key};
@@ -908,6 +917,30 @@ The base exception class
 package Igor::Exception;
 use Moo;
 with 'Throwable';
+use Types::Standard qw( :all );
+use overload q{""} => sub { $_[0]->error };
+
+has error => (
+    is => 'ro',
+    isa => Str,
+);
+
+=head2 Igor::Exception::Constructor
+
+An exception creating a Igor object
+
+=cut
+
+package Igor::Exception::Constructor;
+use Moo;
+use Types::Standard qw( :all );
+extends 'Igor::Exception';
+
+has attr => (
+    is => 'ro',
+    isa => Str,
+    required => 1,
+);
 
 =head2 Igor::Exception::Service
 
