@@ -2,7 +2,7 @@
 use Test::More;
 use Test::Deep;
 use FindBin qw( $Bin );
-use File::Spec::Functions qw( catfile );
+use Path::Tiny qw( path );
 use Scalar::Util qw( refaddr );
 
 use Igor;
@@ -44,10 +44,14 @@ use Igor;
     );
 }
 
-for (qw(file.json file.pl file.yml)) {
-    subtest "load module from config - $_" => sub {
-        my $FILE = catfile( $Bin, 'share', $_ );
-        my $wire = Igor->new( file => $FILE );
+my @paths = map {; $_, "$_" }
+            map { path( $Bin, 'share', $_ ) }
+            qw( file.json file.pl file.yml )
+            ;
+
+for my $path ( @paths ) {
+    subtest "load module from config - $path " . ref($path) => sub {
+        my $wire = Igor->new( file => $path );
         my $foo = $wire->get('foo');
         isa_ok $foo, 'Foo';
         is refaddr $wire->get('foo'), refaddr $foo, 'container caches the object';
