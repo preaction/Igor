@@ -27,6 +27,7 @@ use Igor;
     }
     sub dies { die; } # Exactly as advertised
 }
+local $INC{"Foo.pm"} = __FILE__;
 
 subtest 'scalar args' => sub {
     my $wire = Igor->new(

@@ -19,6 +19,7 @@ use Igor;
         isa     => sub { $_[0]->isa('Bar') },
     );
 }
+local $INC{"Foo.pm"} = __FILE__;
 
 {
     package Bar;
@@ -27,6 +28,7 @@ use Igor;
         is      => 'ro',
     );
 }
+local $INC{"Bar.pm"} = __FILE__;
 
 subtest 'container in services' => sub {
     my $wire = Igor->new(
