@@ -50,7 +50,7 @@ subtest "service with both value and class/extends" => sub {
             $wire = Igor->new(
                 config => {
                     foo => {
-                        class => 'Foo',
+                        class => 'My::ArgsTest',
                         value => 'foo',
                     }
                 }
