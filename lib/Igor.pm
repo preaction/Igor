@@ -104,8 +104,7 @@ has dir => (
 =attr config
 
 The raw configuration data. By default, this data is loaded by
-L<Config::Any|Config::Any> using the file specified by the L</file|file
-attribute>.
+L<Config::Any|Config::Any> using the file specified by the L<file attribute|/file>.
 
 See L<Igor::Help::Config for details on what the configuration
 data structure looks like|Igor::Help::Config>.
