@@ -1,5 +1,5 @@
 package Igor::Emitter;
-our $VERSION = '1.004';
+our $VERSION = '1.005';
 # ABSTRACT: Role for event emitting classes
 
 use strict;
