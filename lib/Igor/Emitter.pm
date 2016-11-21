@@ -9,7 +9,7 @@ use Types::Standard qw(:all);
 use Scalar::Util qw( weaken refaddr );
 use Carp qw( croak );
 use Igor::Event;
-use Igor::Listener;
+use Module::Runtime qw( use_module );
 use Moo::Role; # Put this last to ensure proper, automatic cleanup
 
 
@@ -98,7 +98,7 @@ sub subscribe {
 
     my $class = delete $args{ class } || "Igor::Listener";
     croak( "listener object must descend from Igor::Listener" )
-      unless $class->isa( 'Igor::Listener' );
+      unless use_module($class)->isa( 'Igor::Listener' );
 
     my $listener = $class->new( %args, callback => $sub );
 
