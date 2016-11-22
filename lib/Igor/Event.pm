@@ -1,5 +1,5 @@
 package Igor::Event;
-our $VERSION = '1.005';
+our $VERSION = '1.006';
 # ABSTRACT: Base Event class
 
 use strict;
