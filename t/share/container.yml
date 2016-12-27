@@ -1,0 +1,7 @@
+success:
+    $class: Local::Runnable
+    exit: 0
+
+fail:
+    $class: Local::Runnable
+    exit: 1
