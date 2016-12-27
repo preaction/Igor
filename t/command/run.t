@@ -41,4 +41,20 @@ subtest 'find container in IGOR_PATH' => sub {
     is_deeply $Local::Runnable::got_args, [qw( 1 )], 'args are correct';
 };
 
+subtest 'container not found' => sub {
+    eval { $class->run( container => success => qw( 1 ) ); };
+    ok $@, 'exception thrown';
+    is $@, qq{Could not find container "container" in directories: .\n},
+        'error message is correct';
+};
+
+subtest 'service not found' => sub {
+    local $ENV{IGOR_PATH} = "$SHARE_DIR";
+    my $c = $SHARE_DIR->child( 'container.yml' );
+    eval { $class->run( container => NOT_FOUND => qw( 1 ) ); };
+    ok $@, 'exception thrown';
+    is $@, qq{Could not find service "NOT_FOUND" in container "$c"\n},
+        'error message is correct';
+};
+
 done_testing;

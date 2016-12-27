@@ -20,6 +20,7 @@ use strict;
 use warnings;
 use Igor;
 use Path::Tiny qw( path );
+use Scalar::Util qw( blessed );
 
 # File extensions to try to find, starting with no extension (which is
 # to say the extension is given by the user's input)
@@ -47,15 +48,25 @@ sub run {
                 }
             }
         }
-    }
 
-    die qq{Could not find container $container in directories .:$ENV{IGOR}}
-        unless $path;
+        die sprintf qq{Could not find container "%s" in directories: %s\n},
+            $container, join( ":", @dirs )
+            unless $path;
+    }
 
     my $wire = Igor->new(
         file => $path,
     );
-    my $service = $wire->get( $service_name );
+
+    my $service = eval { $wire->get( $service_name ) };
+    if ( $@ ) {
+        if ( blessed $@ && $@->isa( 'Igor::Exception::NotFound' ) ) {
+            die sprintf qq{Could not find service "%s" in container "%s"\n},
+                $service_name, $path;
+        }
+        die $@;
+    }
+
     return $service->run( @args );
 }
 
