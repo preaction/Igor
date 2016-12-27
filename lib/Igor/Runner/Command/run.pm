@@ -32,7 +32,12 @@ sub run {
         $path = path( $container );
     }
     else {
-        DIR: for my $dir ( ".", split /:/, $ENV{IGOR_PATH} ) {
+        my @dirs = ( "." );
+        if ( $ENV{IGOR_PATH} ) {
+            push @dirs, split /:/, $ENV{IGOR_PATH};
+        }
+
+        DIR: for my $dir ( @dirs ) {
             my $d = path( $dir );
             for my $ext ( @EXTS ) {
                 my $f = $d->child( $container . $ext );
