@@ -21,39 +21,11 @@ use warnings;
 use Igor;
 use Path::Tiny qw( path );
 use Scalar::Util qw( blessed );
-
-# File extensions to try to find, starting with no extension (which is
-# to say the extension is given by the user's input)
-my @EXTS = ( "", qw( .yml .yaml .json .xml .pl ) );
+use Igor::Runner::Util qw( find_container_path );
 
 sub run {
     my ( $class, $container, $service_name, @args ) = @_;
-    my $path;
-    if ( path( $container )->is_file ) {
-        $path = path( $container );
-    }
-    else {
-        my @dirs = ( "." );
-        if ( $ENV{IGOR_PATH} ) {
-            push @dirs, split /:/, $ENV{IGOR_PATH};
-        }
-
-        DIR: for my $dir ( @dirs ) {
-            my $d = path( $dir );
-            for my $ext ( @EXTS ) {
-                my $f = $d->child( $container . $ext );
-                if ( $f->exists ) {
-                    $path = $f;
-                    last DIR;
-                }
-            }
-        }
-
-        die sprintf qq{Could not find container "%s" in directories: %s\n},
-            $container, join( ":", @dirs )
-            unless $path;
-    }
-
+    my $path = find_container_path( $container );
     my $wire = Igor->new(
         file => $path,
     );
