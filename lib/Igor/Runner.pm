@@ -1,5 +1,5 @@
 package Igor::Runner;
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 # ABSTRACT: Execute runnable objects from Igor containers
 
 =head1 SYNOPSIS
