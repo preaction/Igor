@@ -183,12 +183,16 @@ sub _list_service {
 sub _get_service_info {
     my ( $name, $class ) = @_;
     my $pod_path = pod_where( { -inc => 1 }, $class );
+    return $name, $class unless $pod_path;
+
     my $pod_root = Pod::Simple::SimpleTree->new->parse_file( $pod_path )->root;
     #; use Data::Dumper;
     #; print Dumper $pod_root;
     my @nodes = @{$pod_root}[2..$#$pod_root];
     #; print Dumper \@nodes;
     my ( $name_i ) = grep { $nodes[$_][0] eq 'head1' && $nodes[$_][2] eq 'NAME' } 0..$#nodes;
+    return $name, $class unless defined $name_i;
+
     my $abstract = $nodes[ $name_i + 1 ][2];
     return $name, $abstract;
 }

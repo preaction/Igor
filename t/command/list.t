@@ -36,8 +36,9 @@ subtest 'list all containers and services' => sub {
         "- fail    -- Local::Runnable - A test runnable module",
         "- success -- Local::Runnable - A test runnable module",
         "",
-        "other-container", # This container has no $summary
-        "- foo -- Local::Runnable - A test runnable module",
+        "undocumented", # This container has no $summary
+        "- bar -- Local::Underdocumented",
+        "- foo -- Local::Undocumented",
         "";
 
     local $ENV{IGOR_PATH} = "$SHARE_DIR";
