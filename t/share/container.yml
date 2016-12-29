@@ -12,10 +12,6 @@ nonrunnable:
 unloadable:
     $class: DOES::NOT::EXIST
 
-hidden_array:
-    - $class: Local::Runnable
-      why: Arrays are not addressable from Igor->get()
-
 hidden_hash:
     hidden_by:
         $class: Local::Runnable
