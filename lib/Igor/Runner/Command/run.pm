@@ -1,5 +1,5 @@
 package Igor::Runner::Command::run;
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 # ABSTRACT: Run the given service with the given arguments
 
 =head1 SYNOPSIS
