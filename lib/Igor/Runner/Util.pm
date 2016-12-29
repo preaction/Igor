@@ -30,6 +30,10 @@ our @EXPORT_OK = qw( find_container_path );
 # to say the extension is given by the user's input)
 our @EXTS = ( "", qw( .yml .yaml .json .xml .pl ) );
 
+# The "IGOR_PATH" separator value. Windows uses ';' to separate
+# PATH-like variables, everything else uses ':'
+our $PATHS_SEP = $^O eq 'MSWin32' ? ';' : ':';
+
 =sub find_container_path
 
     my $path = find_container_path( $container_name );
@@ -53,7 +57,7 @@ sub find_container_path {
 
     my @dirs = ( "." );
     if ( $ENV{IGOR_PATH} ) {
-        push @dirs, split /:/, $ENV{IGOR_PATH};
+        push @dirs, split /$PATHS_SEP/, $ENV{IGOR_PATH};
     }
 
     DIR: for my $dir ( @dirs ) {
@@ -68,7 +72,7 @@ sub find_container_path {
     }
 
     die sprintf qq{Could not find container "%s" in directories: %s\n},
-        $container, join( ":", @dirs )
+        $container, join( $PATHS_SEP, @dirs )
         unless $path;
 
     return $path;
