@@ -32,6 +32,7 @@ use Igor;
 use Igor::Runner::Util qw( find_container_path );
 use Pod::Find qw( pod_where );
 use Pod::Simple::SimpleTree;
+use Term::ANSIColor qw( color );
 
 # The extensions to remove to show the container's name
 my @EXTS = grep { $_ } @Igor::Runner::Util::EXTS;
@@ -108,7 +109,9 @@ sub _list_services {
     my $wire = Igor->new(
         file => $path,
     );
-    print "$cname" . ( eval { " -- " . $wire->get( '$summary' ) } || '' ) . "\n";
+
+    my ( $bold, $reset ) = ( color( 'bold' ), color( 'reset' ) );
+    print "$bold$cname$reset" . ( eval { " -- " . $wire->get( '$summary' ) } || '' ) . "\n";
 
     my $config = $wire->config;
     my %services;
@@ -118,7 +121,7 @@ sub _list_services {
         $services{ $name } = $abstract;
     }
     my $size = max map { length } keys %services;
-    print join( "\n", map { sprintf "- %-${size}s -- %s", $_, $services{ $_ } } sort keys %services ), "\n";
+    print join( "\n", map { sprintf "- $bold%-${size}s$reset -- %s", $_, $services{ $_ } } sort keys %services ), "\n";
     return 0;
 }
 

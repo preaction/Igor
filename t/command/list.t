@@ -16,6 +16,7 @@ L<Igor::Runner::Command::list>
 
 use strict;
 use warnings;
+use Term::ANSIColor qw( color );
 use Test::More;
 use Test::Lib;
 use Test::Fatal;
@@ -26,19 +27,20 @@ use Capture::Tiny qw( capture );
 use Igor::Runner::Command::list;
 
 my $SHARE_DIR = path( $FindBin::Bin, '..', 'share' );
+my %COLOR = ( bold => color('bold'), reset => color( 'reset' ) );
 my $class = 'Igor::Runner::Command::list';
 
 subtest 'list all containers and services' => sub {
     my $expect_out = join "\n",
-        "container -- A container for test purposes",
-        "- alias   -- Local::Runnable - A test runnable module",
-        "- extends -- Local::Runnable - A test runnable module",
-        "- fail    -- Local::Runnable - A test runnable module",
-        "- success -- Local::Runnable - A test runnable module",
+        "$COLOR{bold}container$COLOR{reset} -- A container for test purposes",
+        "- $COLOR{bold}alias  $COLOR{reset} -- Local::Runnable - A test runnable module",
+        "- $COLOR{bold}extends$COLOR{reset} -- Local::Runnable - A test runnable module",
+        "- $COLOR{bold}fail   $COLOR{reset} -- Local::Runnable - A test runnable module",
+        "- $COLOR{bold}success$COLOR{reset} -- Local::Runnable - A test runnable module",
         "",
-        "undocumented", # This container has no $summary
-        "- bar -- Local::Underdocumented",
-        "- foo -- Local::Undocumented",
+        "$COLOR{bold}undocumented$COLOR{reset}", # This container has no $summary
+        "- $COLOR{bold}bar$COLOR{reset} -- Local::Underdocumented",
+        "- $COLOR{bold}foo$COLOR{reset} -- Local::Undocumented",
         "";
 
     local $ENV{IGOR_PATH} = "$SHARE_DIR";
@@ -52,11 +54,11 @@ subtest 'list all containers and services' => sub {
 
 subtest 'list one container' => sub {
     my $expect_out = join "\n",
-        "container -- A container for test purposes",
-        "- alias   -- Local::Runnable - A test runnable module",
-        "- extends -- Local::Runnable - A test runnable module",
-        "- fail    -- Local::Runnable - A test runnable module",
-        "- success -- Local::Runnable - A test runnable module",
+        "$COLOR{bold}container$COLOR{reset} -- A container for test purposes",
+        "- $COLOR{bold}alias  $COLOR{reset} -- Local::Runnable - A test runnable module",
+        "- $COLOR{bold}extends$COLOR{reset} -- Local::Runnable - A test runnable module",
+        "- $COLOR{bold}fail   $COLOR{reset} -- Local::Runnable - A test runnable module",
+        "- $COLOR{bold}success$COLOR{reset} -- Local::Runnable - A test runnable module",
         "";
 
     local $ENV{IGOR_PATH} = "$SHARE_DIR";
