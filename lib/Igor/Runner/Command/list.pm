@@ -10,8 +10,9 @@ our $VERSION = '0.003';
 =head1 DESCRIPTION
 
 List the available containers found in the directories defined in
-C<IGOR_PATH>, or list the runnable services found in the given
-container.
+C<IGOR_PATH>, and list the runnable services found in them. Also show
+the C<$summary> from the container file, and the abstract from every
+service.
 
 When listing services, this command must load every single class
 referenced in the container, but it will not instanciate any object.
