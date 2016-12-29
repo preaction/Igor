@@ -1,0 +1,7 @@
+
+$summary: Another test container
+
+foo:
+    $class: Local::Runnable
+    exit: 0
+

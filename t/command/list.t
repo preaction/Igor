@@ -28,19 +28,35 @@ use Igor::Runner::Command::list;
 my $SHARE_DIR = path( $FindBin::Bin, '..', 'share' );
 my $class = 'Igor::Runner::Command::list';
 
-subtest 'list all containers' => sub {
+subtest 'list all containers and services' => sub {
+    my $expect_out = join "\n",
+        "container -- A container for test purposes",
+        "- alias   -- Local::Runnable - A test runnable module",
+        "- extends -- Local::Runnable - A test runnable module",
+        "- fail    -- Local::Runnable - A test runnable module",
+        "- success -- Local::Runnable - A test runnable module",
+        "",
+        "other-container -- Another test container",
+        "- foo -- Local::Runnable - A test runnable module",
+        "";
+
     local $ENV{IGOR_PATH} = "$SHARE_DIR";
     my ( $stdout, $stderr, $exit ) = capture {
         $class->run;
     };
     ok !$stderr, 'nothing on stderr';
     is $exit, 0, 'exit 0';
-    is $stdout, "container\n", 'containers listed on stdout';
+    is $stdout, $expect_out, 'containers listed on stdout';
 };
 
-subtest 'list runnable services in container' => sub {
-    my @svcs = qw( alias extends fail success );
-    my $expect_out = join( "\n", @svcs )."\n";
+subtest 'list one container' => sub {
+    my $expect_out = join "\n",
+        "container -- A container for test purposes",
+        "- alias   -- Local::Runnable - A test runnable module",
+        "- extends -- Local::Runnable - A test runnable module",
+        "- fail    -- Local::Runnable - A test runnable module",
+        "- success -- Local::Runnable - A test runnable module",
+        "";
 
     local $ENV{IGOR_PATH} = "$SHARE_DIR";
     my ( $stdout, $stderr, $exit ) = capture {

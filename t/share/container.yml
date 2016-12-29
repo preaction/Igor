@@ -1,3 +1,6 @@
+
+$summary: A container for test purposes
+
 success:
     $class: Local::Runnable
     exit: 0

@@ -24,11 +24,13 @@ L<igor>, L<Igor::Runner::Command>, L<Igor::Runner>
 
 use strict;
 use warnings;
-use List::Util qw( any );
+use List::Util qw( any max );
 use Path::Tiny qw( path );
 use Module::Runtime qw( use_module );
 use Igor;
 use Igor::Runner::Util qw( find_container_path );
+use Pod::Find qw( pod_where );
+use Pod::Simple::SimpleTree;
 
 # The extensions to remove to show the container's name
 my @EXTS = grep { $_ } @Igor::Runner::Util::EXTS;
@@ -67,6 +69,8 @@ sub _list_containers {
     my ( $class ) = @_;
     die "Cannot list containers: IGOR_PATH environment variable not set\n"
         unless $ENV{IGOR_PATH};
+
+    my %containers;
     for my $dir ( split /:/, $ENV{IGOR_PATH} ) {
         my $p = path( $dir );
         my $i = $p->iterator( { recurse => 1, follow_symlinks => 1 } );
@@ -75,9 +79,16 @@ sub _list_containers {
             next unless $file =~ $EXT_RE;
             my $name = $file->relative( $p );
             $name =~ s/$EXT_RE//;
-            print "$name\n";
+            $containers{ $name } ||= $file;
         }
     }
+
+    my @container_names = sort keys %containers;
+    for my $i ( 0..$#container_names ) {
+        $class->_list_services( $containers{ $container_names[ $i ] } );
+        print "\n" unless $i == $#container_names;
+    }
+
     return 0;
 }
 
@@ -92,16 +103,21 @@ sub _list_containers {
 sub _list_services {
     my ( $class, $container ) = @_;
     my $path = find_container_path( $container );
+    my $cname = $path->basename( @EXTS );
     my $wire = Igor->new(
         file => $path,
     );
+    print "$cname -- " . ( $wire->get( '$summary' ) || '' ) . "\n";
 
     my $config = $wire->config;
-    my @services;
+    my %services;
     for my $name ( keys %$config ) {
-        push @services, _list_service( $wire, $name, $config->{$name} );
+        my ( $name, $abstract ) = _list_service( $wire, $name, $config->{$name} );
+        next unless $name;
+        $services{ $name } = $abstract;
     }
-    print join( "\n", sort @services ), "\n";
+    my $size = max map { length } keys %services;
+    print join( "\n", map { sprintf "- %-${size}s -- %s", $_, $services{ $_ } } sort keys %services ), "\n";
     return 0;
 }
 
@@ -155,17 +171,25 @@ sub _list_service {
 
 #=sub _get_service_info( $name, $class )
 #
-#   my $info_str = _get_service_info( $name, $class );
+#   my ( $name, $abstract ) = _get_service_info( $name, $class );
 #
-# Get the information about the given service. Presently returns the
-# name, but in the future will look in the class for some documentation
-# about the service.
+# Get the information about the given service. Opens the C<$class>
+# documentation to find the class's abstract (the C<=head1 NAME>
+# section).
 #
 #=cut
 
 sub _get_service_info {
     my ( $name, $class ) = @_;
-    return $name;
+    my $pod_path = pod_where( { -inc => 1 }, $class );
+    my $pod_root = Pod::Simple::SimpleTree->new->parse_file( $pod_path )->root;
+    #; use Data::Dumper;
+    #; print Dumper $pod_root;
+    my @nodes = @{$pod_root}[2..$#$pod_root];
+    #; print Dumper \@nodes;
+    my ( $name_i ) = grep { $nodes[$_][0] eq 'head1' && $nodes[$_][2] eq 'NAME' } 0..$#nodes;
+    my $abstract = $nodes[ $name_i + 1 ][2];
+    return $name, $abstract;
 }
 
 1;

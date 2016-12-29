@@ -1,5 +1,9 @@
 package Local::Runnable;
 
+=head1 NAME
+
+Local::Runnable - A test runnable module
+
 =head1 SYNOPSIS
 
     use Test::Lib;
