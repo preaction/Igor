@@ -36,7 +36,7 @@ subtest 'list all containers and services' => sub {
         "- fail    -- Local::Runnable - A test runnable module",
         "- success -- Local::Runnable - A test runnable module",
         "",
-        "other-container -- Another test container",
+        "other-container", # This container has no $summary
         "- foo -- Local::Runnable - A test runnable module",
         "";
 
