@@ -1,5 +1,5 @@
 package Igor::Runnable;
-our $VERSION = '0.004';
+our $VERSION = '0.005';
 # ABSTRACT: Role for runnable objects
 
 =head1 SYNOPSIS
