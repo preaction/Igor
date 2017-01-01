@@ -142,9 +142,6 @@ sub _list_service {
     # If it doesn't look like a service, we don't care
     return unless $wire->is_meta( $svc, 1 );
 
-    # Service hashes should be loaded and printed
-    my %meta = $wire->get_meta_names;
-
     # Services that are just references to other services should still
     # be available under their referenced name
     my %svc = %{ $wire->normalize_config( $svc ) };
