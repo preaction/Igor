@@ -35,7 +35,6 @@ subtest 'show class documentation' => sub {
     my ( $stdout, $stderr, $exit ) = capture {
         $class->run( $container => 'success' );
     };
-    diag $stdout;
     ok !$stderr, 'nothing on stderr' or diag $stderr;
     ok $mock->called, 'mock pod2usage called';
     is_deeply { @{$mock->arguments} },
