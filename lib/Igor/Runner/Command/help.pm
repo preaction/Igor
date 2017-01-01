@@ -26,6 +26,15 @@ use Igor;
 sub run {
     my ( $class, $container, $service_name ) = @_;
 
+    if ( !$container || !$service_name ) {
+        return pod2usage(
+            -message => 'ERROR: <container> and <service> are required',
+            -input => pod_where( { -inc => 1 }, __PACKAGE__ ),
+            -verbose => 0,
+            -exitval => 1,
+        );
+    }
+
     my $path = find_container_path( $container );
     my $wire = Igor->new(
         file => $path,

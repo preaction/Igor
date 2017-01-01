@@ -50,6 +50,42 @@ subtest 'show class documentation' => sub {
 
 subtest 'errors' => sub {
 
+    subtest 'container not defined' => sub {
+        my $mock = Mock::MonkeyPatch->patch(
+            'Igor::Runner::Command::help::pod2usage',
+            sub { },
+        );
+        my ( $stdout, $stderr, $exit ) = capture {
+            $class->run();
+        };
+
+        ok !$stdout, 'nothing on stdout' or diag $stdout;
+        ok $mock->called, 'mock pod2usage called';
+        my $got_args = { @{$mock->arguments} };
+        is $got_args->{'-message'}, 'ERROR: <container> and <service> are required', 'error message is correct';
+        is $got_args->{'-verbose'}, 0, 'Pod::Usage verbosity setting is correct';
+        is $got_args->{'-exitval'}, 1, 'exit is nonzero';
+        like $got_args->{'-input'}, qr{Igor/Runner/Command/help\.pm$}, 'doc path is correct';
+    };
+
+    subtest 'service not defined' => sub {
+        my $mock = Mock::MonkeyPatch->patch(
+            'Igor::Runner::Command::help::pod2usage',
+            sub { },
+        );
+        my ( $stdout, $stderr, $exit ) = capture {
+            $class->run( 'container' );
+        };
+
+        ok !$stdout, 'nothing on stdout' or diag $stdout;
+        ok $mock->called, 'mock pod2usage called';
+        my $got_args = { @{$mock->arguments} };
+        is $got_args->{'-message'}, 'ERROR: <container> and <service> are required', 'error message is correct';
+        is $got_args->{'-verbose'}, 0, 'Pod::Usage verbosity setting is correct';
+        is $got_args->{'-exitval'}, 1, 'exit is nonzero';
+        like $got_args->{'-input'}, qr{Igor/Runner/Command/help\.pm$}, 'doc path is correct';
+    };
+
     subtest 'container not found' => sub {
         eval { $class->run( container => success => qw( 1 ) ); };
         ok $@, 'exception thrown';
