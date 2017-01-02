@@ -39,7 +39,7 @@ subtest 'show class documentation' => sub {
     ok $mock->called, 'mock pod2usage called';
     is_deeply { @{$mock->arguments} },
         {
-            -input => path( $FindBin::Bin, '..', 'lib', 'Local', 'Runnable.pm' ),
+            -input => path( $FindBin::Bin, '..', 'lib', 'Local', 'Runnable.pm' )->canonpath,
             -verbose => 2,
             -exitval => 0,
         },
@@ -64,7 +64,8 @@ subtest 'errors' => sub {
         is $got_args->{'-message'}, 'ERROR: <container> and <service> are required', 'error message is correct';
         is $got_args->{'-verbose'}, 0, 'Pod::Usage verbosity setting is correct';
         is $got_args->{'-exitval'}, 1, 'exit is nonzero';
-        like $got_args->{'-input'}, qr{Igor/Runner/Command/help\.pm$}, 'doc path is correct';
+        my $expect_path = path( 'Igor', 'Runner', 'Command', 'help.pm' )->canonpath;
+        like $got_args->{'-input'}, qr{$expect_path$}, 'doc path is correct';
     };
 
     subtest 'service not defined' => sub {
@@ -82,7 +83,8 @@ subtest 'errors' => sub {
         is $got_args->{'-message'}, 'ERROR: <container> and <service> are required', 'error message is correct';
         is $got_args->{'-verbose'}, 0, 'Pod::Usage verbosity setting is correct';
         is $got_args->{'-exitval'}, 1, 'exit is nonzero';
-        like $got_args->{'-input'}, qr{Igor/Runner/Command/help\.pm$}, 'doc path is correct';
+        my $expect_path = path( 'Igor', 'Runner', 'Command', 'help.pm' )->canonpath;
+        like $got_args->{'-input'}, qr{$expect_path$}, 'doc path is correct';
     };
 
     subtest 'container not found' => sub {
