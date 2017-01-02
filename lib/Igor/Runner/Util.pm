@@ -1,5 +1,5 @@
 package Igor::Runner::Util;
-our $VERSION = '0.005';
+our $VERSION = '0.006';
 # ABSTRACT: Utilities for Igor::Runner command classes
 
 =head1 SYNOPSIS
