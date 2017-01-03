@@ -65,7 +65,7 @@ subtest 'errors' => sub {
         is $got_args->{'-verbose'}, 0, 'Pod::Usage verbosity setting is correct';
         is $got_args->{'-exitval'}, 1, 'exit is nonzero';
         my $expect_path = path( 'Igor', 'Runner', 'Command', 'help.pm' )->canonpath;
-        like $got_args->{'-input'}, qr{$expect_path$}, 'doc path is correct';
+        like $got_args->{'-input'}, qr{\Q$expect_path\E$}, 'doc path is correct';
     };
 
     subtest 'service not defined' => sub {
@@ -84,7 +84,7 @@ subtest 'errors' => sub {
         is $got_args->{'-verbose'}, 0, 'Pod::Usage verbosity setting is correct';
         is $got_args->{'-exitval'}, 1, 'exit is nonzero';
         my $expect_path = path( 'Igor', 'Runner', 'Command', 'help.pm' )->canonpath;
-        like $got_args->{'-input'}, qr{$expect_path$}, 'doc path is correct';
+        like $got_args->{'-input'}, qr{\Q$expect_path\E$}, 'doc path is correct';
     };
 
     subtest 'container not found' => sub {
