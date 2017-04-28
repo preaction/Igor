@@ -56,7 +56,7 @@ sub run {
     if ( !$container ) {
         return $class->_list_containers;
     }
-    return $class->_list_services( $container );
+    return $class->_list_services( $container ) ? 0 : 1;
 }
 
 #=sub _list_containers
@@ -86,9 +86,13 @@ sub _list_containers {
     }
 
     my @container_names = sort keys %containers;
+    my $printed = 0;
     for my $i ( 0..$#container_names ) {
-        $class->_list_services( $containers{ $container_names[ $i ] } );
-        print "\n" unless $i == $#container_names;
+        if ( $printed ) {
+            print "\n";
+            $printed = 0;
+        }
+        $printed += $class->_list_services( $containers{ $container_names[ $i ] } );
     }
 
     return 0;
@@ -110,9 +114,6 @@ sub _list_services {
         file => $path,
     );
 
-    my ( $bold, $reset ) = ( color( 'bold' ), color( 'reset' ) );
-    print "$bold$cname$reset" . ( eval { " -- " . $wire->get( '$summary' ) } || '' ) . "\n";
-
     my $config = $wire->config;
     my %services;
     for my $name ( keys %$config ) {
@@ -120,9 +121,14 @@ sub _list_services {
         next unless $name;
         $services{ $name } = $abstract;
     }
+    return 0 unless keys %services;
+
+    my ( $bold, $reset ) = ( color( 'bold' ), color( 'reset' ) );
+    print "$bold$cname$reset" . ( eval { " -- " . $wire->get( '$summary' ) } || '' ) . "\n";
+
     my $size = max map { length } keys %services;
     print join( "\n", map { sprintf "- $bold%-${size}s$reset -- %s", $_, $services{ $_ } } sort keys %services ), "\n";
-    return 0;
+    return 1;
 }
 
 #=sub _list_service
