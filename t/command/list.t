@@ -77,6 +77,16 @@ subtest 'list one container' => sub {
         is $exit, 0, 'exit 0';
         is $stdout, $expect_out, 'runnable services listed on stdout';
     };
+
+    subtest 'container has no runnable services' => sub {
+        my ( $stdout, $stderr, $exit ) = capture {
+            $class->run( 'empty' );
+        };
+        ok !$stdout, 'nothing on stdout';
+        ok $exit, 'exit non-zero';
+        like $stderr, qr{No runnable services in container "empty"\n},
+            "stderr has error message";
+    };
 };
 
 subtest 'errors' => sub {

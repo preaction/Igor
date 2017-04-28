@@ -56,7 +56,13 @@ sub run {
     if ( !$container ) {
         return $class->_list_containers;
     }
-    return $class->_list_services( $container ) ? 0 : 1;
+
+    if ( !$class->_list_services( $container ) ) {
+        warn qq{No runnable services in container "$container"\n};
+        return 1;
+    }
+
+    return 0;
 }
 
 #=sub _list_containers
