@@ -26,6 +26,7 @@ use Path::Tiny qw( path );
 use Capture::Tiny qw( capture );
 use Igor::Runner::Command::list;
 
+local $ENV{IGOR_PATH} = undef;
 my $SHARE_DIR = path( $FindBin::Bin, '..', 'share' );
 my %COLOR = ( bold => color('bold'), reset => color( 'reset' ) );
 my $class = 'Igor::Runner::Command::list';

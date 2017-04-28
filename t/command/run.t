@@ -24,6 +24,7 @@ use FindBin ();
 use Path::Tiny qw( path );
 use Igor::Runner::Command::run;
 
+local $ENV{IGOR_PATH} = undef;
 my $SHARE_DIR = path( $FindBin::Bin, '..', 'share' );
 my $class = 'Igor::Runner::Command::run';
 

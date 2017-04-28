@@ -23,6 +23,7 @@ use Path::Tiny qw( path );
 use Igor::Runner::Command::help;
 use Mock::MonkeyPatch;
 
+local $ENV{IGOR_PATH} = undef;
 my $SHARE_DIR = path( $FindBin::Bin, '..', 'share' );
 my $class = 'Igor::Runner::Command::help';
 
