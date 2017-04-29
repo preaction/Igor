@@ -32,11 +32,11 @@ sub run {
 
     my $service = eval { $wire->get( $service_name ) };
     if ( $@ ) {
-        if ( blessed $@ && $@->isa( 'Igor::Exception::NotFound' ) ) {
+        if ( blessed $@ && $@->isa( 'Igor::Exception::NotFound' ) && $@->name eq $service_name ) {
             die sprintf qq{Could not find service "%s" in container "%s"\n},
                 $service_name, $path;
         }
-        die $@;
+        die sprintf qq{Could not load service "%s" in container "%s": %s\n}, $service_name, $path, $@;
     }
 
     return $service->run( @args );

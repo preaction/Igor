@@ -26,3 +26,7 @@ extends:
 alias:
     $ref: success
 
+dep_missing:
+    $class: Local::Runnable
+    exit:
+        $ref: NOT_FOUND

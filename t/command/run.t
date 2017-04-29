@@ -58,4 +58,13 @@ subtest 'service not found' => sub {
         'error message is correct';
 };
 
+subtest 'service dependency not found' => sub {
+    local $ENV{IGOR_PATH} = "$SHARE_DIR";
+    my $c = $SHARE_DIR->child( 'container.yml' );
+    eval { $class->run( container => dep_missing => qw( 1 ) ); };
+    ok $@, 'exception thrown';
+    like $@, qr{\QCould not load service "dep_missing" in container "$c": Service 'NOT_FOUND' not found},
+        'error message is correct';
+};
+
 done_testing;
