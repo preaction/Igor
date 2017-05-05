@@ -1,5 +1,5 @@
 package Igor::Service;
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 # ABSTRACT: Role for services to access Igor features
 
 =head1 SYNOPSIS
