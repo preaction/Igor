@@ -1,5 +1,5 @@
 package Igor::Runner::Command::list;
-our $VERSION = '0.008';
+our $VERSION = '0.009';
 # ABSTRACT: List the available containers and services
 
 =head1 SYNOPSIS
