@@ -3,10 +3,12 @@ $summary: A container for test purposes
 
 success:
     $class: Local::Runnable
+    summary: A task that succeeds
     exit: 0
 
 fail:
     $class: Local::Runnable
+    summary: A task that fails
     exit: 1
 
 nonrunnable:

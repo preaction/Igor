@@ -172,11 +172,11 @@ sub _list_service {
 
     # Can we determine this object is runnable without loading anything?
     if ( grep { $_ eq 'Igor::Runnable' } @roles ) {
-        return _get_service_info( $name, $class );
+        return _get_service_info( $name, $class, \%merged );
     }
 
     if ( eval { any {; use_module( $_ )->DOES( 'Igor::Runnable' ) } $class, @roles } ) {
-        return _get_service_info( $name, $class );
+        return _get_service_info( $name, $class, \%merged );
     }
 
     return;
@@ -184,16 +184,26 @@ sub _list_service {
 
 #=sub _get_service_info( $name, $class )
 #
-#   my ( $name, $abstract ) = _get_service_info( $name, $class );
+#   my ( $name, $abstract ) = _get_service_info( $name, $class, $config );
 #
 # Get the information about the given service. Opens the C<$class>
 # documentation to find the class's abstract (the C<=head1 NAME>
-# section).
+# section). If C<$config> contains a C<summary> in its C<args> hashref,
+# will use that in place of the POD documentation.
 #
 #=cut
 
 sub _get_service_info {
-    my ( $name, $class ) = @_;
+    my ( $name, $class, $config ) = @_;
+    if ( $config->{args}{summary} ) {
+        # XXX: This does not allow good defaults from the object
+        # itself... There's no way to get that without instantiating the
+        # object, which means potentially doing a lot of work like
+        # connecting to a database. If we had some way of making things
+        # extra lazy, we could create the object without doing much
+        # work...
+        return $name, $config->{args}{summary};
+    }
     my $pod_path = pod_where( { -inc => 1 }, $class );
     return $name, $class unless $pod_path;
 

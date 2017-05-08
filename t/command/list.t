@@ -34,11 +34,11 @@ my $class = 'Igor::Runner::Command::list';
 subtest 'list all containers and services' => sub {
     my $expect_out = join "\n",
         "$COLOR{bold}container$COLOR{reset} -- A container for test purposes",
-        "- $COLOR{bold}alias      $COLOR{reset} -- Local::Runnable - A test runnable module",
+        "- $COLOR{bold}alias      $COLOR{reset} -- A task that succeeds",
         "- $COLOR{bold}dep_missing$COLOR{reset} -- Local::Runnable - A test runnable module",
-        "- $COLOR{bold}extends    $COLOR{reset} -- Local::Runnable - A test runnable module",
-        "- $COLOR{bold}fail       $COLOR{reset} -- Local::Runnable - A test runnable module",
-        "- $COLOR{bold}success    $COLOR{reset} -- Local::Runnable - A test runnable module",
+        "- $COLOR{bold}extends    $COLOR{reset} -- A task that succeeds",
+        "- $COLOR{bold}fail       $COLOR{reset} -- A task that fails",
+        "- $COLOR{bold}success    $COLOR{reset} -- A task that succeeds",
         "",
         "$COLOR{bold}undocumented$COLOR{reset}", # This container has no $summary
         "- $COLOR{bold}bar$COLOR{reset} -- Local::Underdocumented",
@@ -57,11 +57,11 @@ subtest 'list all containers and services' => sub {
 subtest 'list one container' => sub {
     my $expect_out = join "\n",
         "$COLOR{bold}container$COLOR{reset} -- A container for test purposes",
-        "- $COLOR{bold}alias      $COLOR{reset} -- Local::Runnable - A test runnable module",
+        "- $COLOR{bold}alias      $COLOR{reset} -- A task that succeeds",
         "- $COLOR{bold}dep_missing$COLOR{reset} -- Local::Runnable - A test runnable module",
-        "- $COLOR{bold}extends    $COLOR{reset} -- Local::Runnable - A test runnable module",
-        "- $COLOR{bold}fail       $COLOR{reset} -- Local::Runnable - A test runnable module",
-        "- $COLOR{bold}success    $COLOR{reset} -- Local::Runnable - A test runnable module",
+        "- $COLOR{bold}extends    $COLOR{reset} -- A task that succeeds",
+        "- $COLOR{bold}fail       $COLOR{reset} -- A task that fails",
+        "- $COLOR{bold}success    $COLOR{reset} -- A task that succeeds",
         "";
 
     local $ENV{IGOR_PATH} = "$SHARE_DIR";
