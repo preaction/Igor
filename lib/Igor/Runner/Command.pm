@@ -1,5 +1,5 @@
 package Igor::Runner::Command;
-our $VERSION = '0.010';
+our $VERSION = '0.011';
 # ABSTRACT: Main command handler delegating to individual commands
 
 =head1 SYNOPSIS
