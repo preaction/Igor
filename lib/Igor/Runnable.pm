@@ -37,6 +37,21 @@ The C<igor list> command, when listing runnable objects, will display
 either the C<summary> attribute or the C<NAME> POD section (abstract)
 next to the service name.
 
+=head2 Additional Roles
+
+Additional roles can add common functionality to your runnable script.
+Some of these are included in the C<Igor::Runner> distribution:
+
+=over
+
+=item L<Igor::Runnable::Timeout::Alarm>
+
+This role will add a timeout using Perl's built-in
+L<alarm()|perlfunc/alarm> function. Once the timeout is reached, the
+program will print a warning and exit with an error code.
+
+=back
+
 =head1 SEE ALSO
 
 L<igor>, L<Igor::Runner>
