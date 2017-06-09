@@ -47,6 +47,9 @@ sub run {
     my %service_conf = %{ $wire->normalize_config( $service_conf ) };
     %service_conf = $wire->merge_config( %service_conf );
     my $pod_path = pod_where( { -inc => 1 }, $service_conf{class} );
+    if ( !$pod_path ) {
+        die "Could not find documentation for class '$service_conf{class}'\n";
+    }
     pod2usage(
         -input => $pod_path,
         -verbose => 2,
