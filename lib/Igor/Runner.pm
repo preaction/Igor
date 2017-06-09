@@ -18,7 +18,7 @@ configuration files and then execute them. This also allows easy
 discovery of configuration files and objects, and allows you to document
 your objects for your users.
 
-=head2 Create a Task
+=head2 Tasks
 
 A task is an object that consumes the L<Igor::Runnable> role. This role
 requires only a C<run()> method be implemented in the class. This
