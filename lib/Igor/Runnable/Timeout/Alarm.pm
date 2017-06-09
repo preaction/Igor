@@ -1,5 +1,5 @@
 package Igor::Runnable::Timeout::Alarm;
-our $VERSION = '0.011';
+our $VERSION = '0.012';
 # ABSTRACT: Use `alarm` to set a timeout for a command
 
 =head1 SYNOPSIS
