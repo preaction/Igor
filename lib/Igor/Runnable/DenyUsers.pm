@@ -1,5 +1,5 @@
 package Igor::Runnable::DenyUsers;
-our $VERSION = '0.014';
+our $VERSION = '0.015';
 # ABSTRACT: Deny certain users from running a command
 
 =head1 SYNOPSIS

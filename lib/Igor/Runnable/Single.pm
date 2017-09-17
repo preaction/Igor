@@ -1,5 +1,5 @@
 package Igor::Runnable::Single;
-our $VERSION = '0.014';
+our $VERSION = '0.015';
 # ABSTRACT: Only allow one instance of this command at a time
 
 =head1 SYNOPSIS

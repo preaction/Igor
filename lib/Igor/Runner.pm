@@ -1,5 +1,5 @@
 package Igor::Runner;
-our $VERSION = '0.014';
+our $VERSION = '0.015';
 # ABSTRACT: Configure, list, document, and execute runnable task objects
 
 =head1 SYNOPSIS

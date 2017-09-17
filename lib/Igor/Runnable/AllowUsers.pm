@@ -1,5 +1,5 @@
 package Igor::Runnable::AllowUsers;
-our $VERSION = '0.014';
+our $VERSION = '0.015';
 # ABSTRACT: Only allow certain users to run a command
 
 =head1 SYNOPSIS
