@@ -1,5 +1,5 @@
 package Igor::Runner::ExecCommand;
-our $VERSION = '0.015';
+our $VERSION = '0.016';
 # ABSTRACT: Run an external command
 
 =head1 SYNOPSIS
