@@ -1,5 +1,5 @@
 package Igor::Runner::Steps;
-our $VERSION = '0.016';
+our $VERSION = '0.017';
 # ABSTRACT: Run a series of steps
 
 =head1 SYNOPSIS

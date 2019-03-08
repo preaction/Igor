@@ -1,5 +1,5 @@
 package Igor::Runner::Command::help;
-our $VERSION = '0.016';
+our $VERSION = '0.017';
 # ABSTRACT: Get help for the given service(s)
 
 =head1 SYNOPSIS
