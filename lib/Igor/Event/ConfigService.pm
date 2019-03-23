@@ -1,5 +1,5 @@
 package Igor::Event::ConfigService;
-our $VERSION = '1.023';
+our $VERSION = '1.024';
 # ABSTRACT: Event fired when configuring a new service
 
 =head1 SYNOPSIS

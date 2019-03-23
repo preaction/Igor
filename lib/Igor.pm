@@ -1,5 +1,5 @@
 package Igor;
-our $VERSION = '1.023';
+our $VERSION = '1.024';
 # ABSTRACT: Lightweight Dependency Injection Container
 
 =head1 SYNOPSIS
