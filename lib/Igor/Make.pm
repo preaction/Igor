@@ -112,12 +112,19 @@ sub _resolve_ref( $self, $conf ) {
         }
         else {
             # All keys begin with '$', so this must be a reference
-            # XXX: We may need to add the 'file:path' syntax to
+            # XXX: We should add the 'file:path' syntax to
             # Igor directly. We could even call it as a class
-            # method!
-            my ( $file, $path ) = split /:/, $conf->{ '$ref' }, 2;
-            my $wire = $self->_wire->{ $file } ||= Igor->new( file => $file );
-            return $wire->get( $path );
+            # method! We should also move IGOR_PATH resolution to
+            # Igor directly...
+            my ( $file, $service ) = split /:/, $conf->{ '$ref' }, 2;
+            my $wire = $self->_wire->{ $file };
+            if ( !$wire ) {
+                for my $path ( split /:/, $ENV{IGOR_PATH} ) {
+                    next unless -e join '/', $path, $file;
+                    $wire = $self->_wire->{ $file } = Igor->new( file => join '/', $path, $file );
+                }
+            }
+            return $wire->get( $service );
         }
     }
     elsif ( ref $conf eq 'ARRAY' ) {
