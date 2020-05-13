@@ -1,5 +1,5 @@
 package Igor::Make::Recipe;
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 # ABSTRACT: The base class for Igor::Make recipes
 
 =head1 SYNOPSIS

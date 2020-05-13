@@ -1,5 +1,5 @@
 package Igor::Make;
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 # ABSTRACT: Recipes to declare and resolve dependencies between things
 
 =head1 SYNOPSIS
