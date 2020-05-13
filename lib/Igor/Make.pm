@@ -158,6 +158,20 @@ recursively, in that directory.
 This would allow rebuilding a ZIP file when something changes, or
 rebuilding a Docker image when needed.
 
+=item Igor should support the <container>:<service> syntax
+for references
+
+The L<Igor> class should handle the C<IGOR_PATH> environment
+variable directly and be able to resolve services from other files
+without building another C<Igor> object in the container.
+
+=item Igor should support resolving objects in arbitrary data
+structures
+
+L<Igor> should have a class method that one can pass in a hash and
+get back a hash with any C<Igor> object references resolved,
+including C<$ref> or C<$class> object.
+
 =back
 
 =head1 SEE ALSO
