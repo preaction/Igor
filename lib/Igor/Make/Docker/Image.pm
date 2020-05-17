@@ -1,5 +1,5 @@
 package Igor::Make::Docker::Image;
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 # ABSTRACT: A Igor::Make recipe to build/pull/update a Docker image
 
 =head1 SYNOPSIS

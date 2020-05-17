@@ -1,5 +1,5 @@
 package Igor::Make::Cache;
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 # ABSTRACT: Store information about recipes performed
 
 =head1 SYNOPSIS

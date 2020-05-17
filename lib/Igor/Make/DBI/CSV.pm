@@ -1,5 +1,5 @@
 package Igor::Make::DBI::CSV;
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 # ABSTRACT: A Igor::Make recipe 
 
 =head1 SYNOPSIS

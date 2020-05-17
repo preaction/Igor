@@ -1,5 +1,5 @@
 package Igor::Make::DBI;
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 # ABSTRACT: A Igor::Make recipe for executing SQL queries
 
 =head1 SYNOPSIS
