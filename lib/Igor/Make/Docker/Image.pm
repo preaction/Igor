@@ -7,6 +7,7 @@ our $VERSION = '0.003';
     ### Igorfile
     nordaaker/convos:
         $class: Igor::Make::Docker::Image
+        image: nordaaker/convos
 
 =head1 DESCRIPTION
 
