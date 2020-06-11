@@ -1,0 +1,57 @@
+#!/usr/bin/perl
+our $VERSION = '0.017';
+# PODNAME: igor
+# ABSTRACT: Discover and run services from container files
+
+=head1 SYNOPSIS
+
+    igor run <container> <service> [<args...>]
+    igor list
+    igor list <container>
+    igor help <container> <service>
+    igor help
+
+=head1 DESCRIPTION
+
+This command allows you to execute runnable objects configured in
+container files. It also allows listing of container files, listing of
+runnable objects inside container files, and viewing documentation
+associated with those objects to help in running them.
+
+For help with building a container file, see L<the Igor
+documentation|Igor>.
+
+=head1 ARGUMENTS
+
+=head2 container
+
+A container file to load. This file will be found in one of the
+L</IGOR_PATH> directories. The file extension (C<.yml>, C<.json>,
+etc...) is optional.
+
+=head2 service
+
+The name of a runnable object in the container. The object must consume
+the L<Igor::Runnable> role and implement the C<run()> method.
+
+=head2 args
+
+Any arguments will be given to the C<service>'s C<run()> method.
+
+=head1 ENVIRONMENT VARIABLES
+
+=head2 IGOR_PATH
+
+A colon-separated list of paths to search for container files.
+
+=head1 SEE ALSO
+
+L<Igor::Runner>, L<Igor>
+
+=cut
+
+use strict;
+use warnings;
+use Igor::Runner::Command;
+exit Igor::Runner::Command->run( @ARGV );
+
