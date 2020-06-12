@@ -25,7 +25,7 @@ use Path::Tiny qw( path );
 use Igor::Runner::Command::run;
 
 local $ENV{IGOR_PATH} = undef;
-my $SHARE_DIR = path( $FindBin::Bin, '..', 'share' );
+my $SHARE_DIR = path( $FindBin::Bin, '..', 'share', 'runner' );
 my $class = 'Igor::Runner::Command::run';
 
 subtest 'run a service' => sub {

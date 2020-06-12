@@ -34,7 +34,7 @@ my $make = Igor::Make->new(
         'image' => {
             '$class' => 'Igor::Make::Docker::Image',
             requires => [qw( base )],
-            build => '$SHARE_DIR/docker',
+            build => '$SHARE_DIR/make/docker',
             image => 'preaction/igor-make:test',
         },
 

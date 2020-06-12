@@ -23,12 +23,12 @@ subtest 'find_containers' => sub {
             or diag "Got warnings: \n- " . join "\n- ", @warnings;
     };
 
-    local $ENV{IGOR_PATH} = $Bin . '/share';
+    local $ENV{IGOR_PATH} = $Bin . '/share/runner';
     my %containers = find_containers();
     is_deeply \%containers, {
-        empty => $Bin . '/share/empty.yml',
-        undocumented => $Bin . '/share/undocumented.yml',
-        container => $Bin . '/share/container.yml',
+        empty => $Bin . '/share/runner/empty.yml',
+        undocumented => $Bin . '/share/runner/undocumented.yml',
+        container => $Bin . '/share/runner/container.yml',
     }, 'containers are complete and correct';
 };
 

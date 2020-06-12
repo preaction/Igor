@@ -6,7 +6,7 @@ lists all the container files in C<IGOR_PATH>, and lists all the runnable
 services in a particular container.
 
 This file uses the C<t/lib/Local/Runnable.pm> file as a runnable object,
-and C<t/share/container.yml> as the L<Igor> container.
+and C<t/share/runner/container.yml> as the L<Igor> container.
 
 =head1 SEE ALSO
 
@@ -27,7 +27,7 @@ use Capture::Tiny qw( capture );
 use Igor::Runner::Command::list;
 
 local $ENV{IGOR_PATH} = undef;
-my $SHARE_DIR = path( $FindBin::Bin, '..', 'share' );
+my $SHARE_DIR = path( $FindBin::Bin, '..', 'share', 'runner' );
 my %COLOR = ( bold => color('bold'), reset => color( 'reset' ) );
 my $class = 'Igor::Runner::Command::list';
 

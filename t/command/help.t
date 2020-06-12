@@ -5,7 +5,7 @@ This file tests the L<Igor::Runner::Command::help> class to ensure it
 shows the documentation for the correct class.
 
 This file uses the C<t/lib/Local/Runnable.pm> file as a runnable object,
-and C<t/share/container.yml> as the L<Igor> container.
+and C<t/share/runner/container.yml> as the L<Igor> container.
 
 =head1 SEE ALSO
 
@@ -24,7 +24,7 @@ use Igor::Runner::Command::help;
 use Mock::MonkeyPatch;
 
 local $ENV{IGOR_PATH} = undef;
-my $SHARE_DIR = path( $FindBin::Bin, '..', 'share' );
+my $SHARE_DIR = path( $FindBin::Bin, '..', 'share', 'runner' );
 my $class = 'Igor::Runner::Command::help';
 
 subtest 'show class documentation' => sub {
